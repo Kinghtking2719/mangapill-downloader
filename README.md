@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=4000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Mangapill+Downloader;Beautiful+CLI+Manga+Downloader;Download+%E2%80%A2+Convert+%E2%80%A2+Enjoy" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=4000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Mangapill+Downloader;Beautiful+CLI+%2B+GUI+Manga+Downloader;Download+%E2%80%A2+Convert+%E2%80%A2+Enjoy" alt="Typing SVG" />
 </p>
 
 <p align="center">
@@ -22,10 +22,10 @@
 <tr>
 <td>
 
-🎨 **Beautiful Interactive CLI**
-- Stunning ASCII art banner
-- Rich terminal UI with colors
-- Interactive menus and prompts
+🎨 **Two Beautiful Interfaces**
+- ✨ Modern PyQt6 + QML GUI
+- 💻 Rich interactive CLI
+- Stunning dark glassmorphism theme
 
 </td>
 <td>
@@ -113,10 +113,10 @@ cd mangapill-downloader
 pip install -r requirements.txt
 ```
 
-### Usage
+### CLI Usage
 
 ```bash
-# Interactive mode (recommended)
+# Interactive CLI mode
 python main.py
 
 # Direct download with URL
@@ -131,6 +131,20 @@ python main.py info URL
 # Manage settings
 python main.py settings
 ```
+
+### GUI Usage
+
+```bash
+# Launch the beautiful GUI
+python gui/main_gui.py
+```
+
+The GUI features:
+- 🎴 Dark glassmorphism theme with neon accents
+- 🔗 URL input with manga info display
+- ☑️ Visual chapter selection (All/Range/Custom)
+- 📊 Real-time download progress
+- ⚙️ Settings panel with sliders and toggles
 
 ---
 
@@ -205,26 +219,34 @@ Settings are stored in `config.json`:
 
 ```
 mangapill-downloader/
-├── main.py                 # Entry point
+├── main.py                 # CLI entry point
 ├── config.json             # User settings (generated)
 ├── requirements.txt        # Dependencies
-└── src/
-    ├── config.py           # Config management
-    ├── constants.py        # Headers & branding
-    ├── scrapers/
-    │   ├── manga.py        # Manga info scraper
-    │   └── chapter.py      # Chapter images scraper
-    ├── downloader/
-    │   ├── manager.py      # Thread pool manager
-    │   └── retry.py        # Retry decorator
-    ├── converters/
-    │   ├── pdf.py          # PDF converter
-    │   ├── cbz.py          # CBZ converter
-    │   └── comicinfo.py    # ComicInfo.xml generator
-    └── cli/
-        ├── app.py          # Typer commands
-        ├── prompts.py      # Interactive prompts
-        └── display.py      # Rich UI components
+├── src/                    # Core backend
+│   ├── config.py           # Config management
+│   ├── constants.py        # Headers & branding
+│   ├── scrapers/
+│   │   ├── manga.py        # Manga info scraper
+│   │   └── chapter.py      # Chapter images scraper
+│   ├── downloader/
+│   │   ├── manager.py      # Thread pool manager
+│   │   └── retry.py        # Retry decorator
+│   ├── converters/
+│   │   ├── pdf.py          # PDF converter
+│   │   ├── cbz.py          # CBZ converter
+│   │   └── comicinfo.py    # ComicInfo.xml generator
+│   └── cli/
+│       ├── app.py          # Typer commands
+│       ├── prompts.py      # Interactive prompts
+│       └── display.py      # Rich UI components
+└── gui/                    # PyQt6 + QML GUI
+    ├── main_gui.py         # GUI entry point
+    ├── bridge.py           # Python ↔ QML bridge
+    └── qml/
+        ├── main.qml        # Main window
+        ├── theme/          # Colors & styling
+        ├── components/     # Reusable UI components
+        └── screens/        # App screens
 ```
 
 ---
@@ -232,7 +254,7 @@ mangapill-downloader/
 ## 🔧 Requirements
 
 - Python 3.10+
-- Dependencies:
+- **CLI Dependencies:**
   - `typer[all]` - CLI framework
   - `rich` - Beautiful terminal UI
   - `requests` - HTTP client
@@ -240,6 +262,8 @@ mangapill-downloader/
   - `Pillow` - Image processing
   - `img2pdf` - PDF generation
   - `lxml` - XML processing
+- **GUI Dependencies:**
+  - `PyQt6` - Qt6 Python bindings
 
 ---
 

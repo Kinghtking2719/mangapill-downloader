@@ -1,0 +1,5 @@
+module screens
+HomeScreen 1.0 HomeScreen.qml
+MangaInfoScreen 1.0 MangaInfoScreen.qml
+DownloadScreen 1.0 DownloadScreen.qml
+SettingsScreen 1.0 SettingsScreen.qml

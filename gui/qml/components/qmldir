@@ -1,0 +1,7 @@
+module components
+GlassCard 1.0 GlassCard.qml
+NeonButton 1.0 NeonButton.qml
+ToggleSwitch 1.0 ToggleSwitch.qml
+CustomSlider 1.0 CustomSlider.qml
+ChapterItem 1.0 ChapterItem.qml
+ProgressBar 1.0 ProgressBar.qml
