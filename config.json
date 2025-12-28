@@ -1,0 +1,9 @@
+{
+  "output_dir": "./downloads",
+  "output_format": "images",
+  "keep_images": true,
+  "max_chapter_workers": 3,
+  "max_image_workers": 5,
+  "retry_count": 3,
+  "retry_base_delay": 2.0
+}

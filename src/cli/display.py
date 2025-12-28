@@ -71,13 +71,12 @@ def show_manga_info(manga: MangaInfo):
         console.print(desc_panel)
 
 
-def show_chapters_table(chapters: list[Chapter], show_all: bool = False):
+def show_chapters_table(chapters: list[Chapter]):
     """
-    Display chapters in a formatted table.
+    Display all chapters in a formatted table.
     
     Args:
         chapters: List of Chapter objects
-        show_all: If False, show only first and last 5 chapters
     """
     table = Table(
         title="[bold green]📑 Chapters[/bold green]",
@@ -90,19 +89,9 @@ def show_chapters_table(chapters: list[Chapter], show_all: bool = False):
     table.add_column("#", justify="right", style="dim", width=6)
     table.add_column("Chapter", style="cyan", min_width=30)
     
-    if show_all or len(chapters) <= 15:
-        # Show all chapters
-        for i, chapter in enumerate(chapters, 1):
-            table.add_row(str(i), chapter.title)
-    else:
-        # Show first 5 and last 5
-        for i, chapter in enumerate(chapters[:5], 1):
-            table.add_row(str(i), chapter.title)
-        
-        table.add_row("...", f"[dim]... {len(chapters) - 10} more chapters ...[/dim]")
-        
-        for i, chapter in enumerate(chapters[-5:], len(chapters) - 4):
-            table.add_row(str(i), chapter.title)
+    # Show all chapters
+    for i, chapter in enumerate(chapters, 1):
+        table.add_row(str(i), chapter.title)
     
     console.print(table)
 

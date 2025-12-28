@@ -89,9 +89,10 @@ def scrape_manga(url: str) -> MangaInfo:
     
     # ---------- Cover Image ----------
     cover_elem = soup.select_one("div.w-60 img")
-    cover_url = None
+    cover_url: str | None = None
     if cover_elem:
-        cover_url = cover_elem.get("data-src") or cover_elem.get("src")
+        src = cover_elem.get("data-src") or cover_elem.get("src")
+        cover_url = str(src) if src else None
     
     # ---------- Description ----------
     desc_p = soup.select_one("p.text-sm.text--secondary")
@@ -135,8 +136,11 @@ def scrape_manga(url: str) -> MangaInfo:
     chapters = []
     for a in soup.select("#chapters a[href^='/chapters/']"):
         chapter_title = a.get_text(strip=True)
-        chapter_url = urljoin(BASE_URL, a["href"])
+        chapter_url = urljoin(BASE_URL, str(a["href"]))
         chapters.append(Chapter(title=chapter_title, url=chapter_url))
+    
+    # Reverse chapters so Chapter 1 appears first
+    chapters.reverse()
     
     return MangaInfo(
         title=title,
