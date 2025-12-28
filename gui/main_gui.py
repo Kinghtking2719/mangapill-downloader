@@ -1,20 +1,33 @@
 """
 Mangapill Downloader - GUI Entry Point
 Beautiful PyQt6 + QML interface for manga downloading.
+
+Usage:
+    python gui/main_gui.py          # Software rendering (default, works everywhere)
+    python gui/main_gui.py --gpu    # Hardware GPU rendering (faster, may not work on all systems)
 """
 
 import sys
 import os
 from pathlib import Path
 
+# Check for --gpu flag BEFORE importing Qt
+USE_GPU = "--gpu" in sys.argv
+if "--gpu" in sys.argv:
+    sys.argv.remove("--gpu")  # Remove so Qt doesn't see it
+
 # Force Basic style to avoid Windows DLL issues
 os.environ["QT_QUICK_CONTROLS_STYLE"] = "Basic"
 
-# Force software/OpenGL rendering to avoid GPU driver issues
-# Fixes "COM error 0x887a0005: Device removed" on problematic GPUs
-os.environ["QT_QUICK_BACKEND"] = "software"  # Use software Qt Quick renderer
-os.environ["QT_OPENGL"] = "software"  # Force software OpenGL
-os.environ["QSG_RENDER_LOOP"] = "basic"  # Use basic render loop (no threading)
+if not USE_GPU:
+    # Default: Software rendering (works on all systems)
+    # Fixes "COM error 0x887a0005: Device removed" on problematic GPUs
+    os.environ["QT_QUICK_BACKEND"] = "software"
+    os.environ["QT_OPENGL"] = "software"
+    os.environ["QSG_RENDER_LOOP"] = "basic"
+else:
+    # GPU mode: Use hardware acceleration (faster but may crash on some systems)
+    print("🎮 GPU mode enabled - using hardware acceleration")
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtQml import QQmlApplicationEngine

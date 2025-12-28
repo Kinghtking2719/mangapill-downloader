@@ -145,16 +145,22 @@ python main.py settings
 ### GUI Usage
 
 ```bash
-# Launch the beautiful GUI
+# Launch the GUI (software rendering - works on all systems)
 python gui/main_gui.py
+
+# Launch with GPU acceleration (faster, but may not work on all systems)
+python gui/main_gui.py --gpu
 ```
+
+> **Note:** If you experience crashes or GPU errors, use the default mode without `--gpu`.
 
 The GUI features:
 - 🎴 Dark glassmorphism theme with neon accents
 - 🔗 URL input with manga info display
-- ☑️ Visual chapter selection (All/Range/Custom)
-- 📊 Real-time download progress
+- ☑️ Visual chapter selection (All/None/Range)
+- 📊 Real-time concurrent download progress
 - ⚙️ Settings panel with sliders and toggles
+- 🎮 Optional GPU acceleration for smoother animations
 
 ---
 
