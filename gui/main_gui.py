@@ -10,9 +10,12 @@ from pathlib import Path
 # Force Basic style to avoid Windows DLL issues
 os.environ["QT_QUICK_CONTROLS_STYLE"] = "Basic"
 
-# Use software rendering to avoid GPU driver issues on some systems
+# Force software rendering to avoid GPU driver issues on some systems
 # This fixes "COM error 0x887a0005: Device removed" errors
-os.environ["QSG_RHI_BACKEND"] = "sw"
+os.environ["QSG_RHI_BACKEND"] = "sw"  # Software rendering for Qt 6
+os.environ["QT_OPENGL"] = "software"  # Force software OpenGL
+os.environ["LIBGL_ALWAYS_SOFTWARE"] = "1"  # Mesa software fallback
+os.environ["QSG_RENDER_LOOP"] = "basic"  # Use basic render loop
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtQml import QQmlApplicationEngine
