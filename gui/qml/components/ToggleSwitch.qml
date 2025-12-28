@@ -3,16 +3,16 @@ import QtQuick.Controls
 import "../theme"
 
 /**
- * ToggleSwitch - iOS-style animated toggle switch
+ * ToggleSwitch - iOS-style animated toggle switch with clear ON/OFF states
  */
 Switch {
     id: root
     
     property color activeColor: Theme.accentPrimary
-    property color inactiveColor: "#4A4A5A"  // Brighter gray for visibility
+    property color inactiveColor: "#2A2A3A"  // Dark background when off
     
-    implicitWidth: 56
-    implicitHeight: 30
+    implicitWidth: 60
+    implicitHeight: 32
     
     indicator: Rectangle {
         id: track
@@ -20,7 +20,7 @@ Switch {
         height: root.implicitHeight
         radius: height / 2
         color: root.checked ? root.activeColor : root.inactiveColor
-        border.color: root.checked ? Qt.lighter(root.activeColor, 1.2) : "#6B6B8D"
+        border.color: root.checked ? Qt.lighter(root.activeColor, 1.3) : "#5A5A6A"
         border.width: 2
         
         Behavior on color {
@@ -31,32 +31,56 @@ Switch {
             ColorAnimation { duration: Theme.animNormal }
         }
         
+        // ON/OFF indicator text
+        Text {
+            anchors.left: root.checked ? parent.left : undefined
+            anchors.right: root.checked ? undefined : parent.right
+            anchors.leftMargin: 8
+            anchors.rightMargin: 8
+            anchors.verticalCenter: parent.verticalCenter
+            text: root.checked ? "ON" : "OFF"
+            font.pixelSize: 9
+            font.bold: true
+            color: root.checked ? Theme.bgPrimary : "#888899"
+            opacity: 0.9
+            
+            Behavior on opacity {
+                NumberAnimation { duration: Theme.animFast }
+            }
+        }
+        
         // Knob
         Rectangle {
             id: knob
-            width: 22
-            height: 22
+            width: 24
+            height: 24
             radius: height / 2
             anchors.verticalCenter: parent.verticalCenter
-            x: root.checked ? parent.width - width - 3 : 3
-            color: Theme.textPrimary
+            x: root.checked ? parent.width - width - 4 : 4
             
-            // Inner shadow for depth
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: 2
-                radius: parent.radius
-                color: "transparent"
-                border.color: Qt.rgba(0, 0, 0, 0.1)
-                border.width: 1
+            // Knob color changes based on state
+            color: root.checked ? "#FFFFFF" : "#AAAAAA"
+            
+            // Checkmark when ON
+            Text {
+                anchors.centerIn: parent
+                text: root.checked ? "✓" : ""
+                font.pixelSize: 12
+                font.bold: true
+                color: Theme.accentPrimary
+                visible: root.checked
             }
             
             Behavior on x {
                 NumberAnimation {
                     duration: Theme.animNormal
                     easing.type: Easing.OutBack
-                    easing.overshoot: 1.5
+                    easing.overshoot: 1.2
                 }
+            }
+            
+            Behavior on color {
+                ColorAnimation { duration: Theme.animNormal }
             }
             
             // Scale bounce on change
@@ -70,22 +94,23 @@ Switch {
             }
         }
         
-        // Glow when active
-        layer.enabled: root.checked
-        layer.effect: Item {
-            // Shadow approximation
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: -4
-                radius: parent.height / 2 + 4
-                color: "transparent"
-                border.color: Qt.rgba(
-                    root.activeColor.r,
-                    root.activeColor.g,
-                    root.activeColor.b,
-                    0.4
-                )
-                border.width: 4
+        // Glow effect when active
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: -3
+            z: -1
+            radius: parent.radius + 3
+            color: "transparent"
+            border.color: root.checked ? Qt.rgba(
+                root.activeColor.r,
+                root.activeColor.g,
+                root.activeColor.b,
+                0.5
+            ) : "transparent"
+            border.width: 3
+            
+            Behavior on border.color {
+                ColorAnimation { duration: Theme.animNormal }
             }
         }
     }
