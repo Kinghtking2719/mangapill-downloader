@@ -333,14 +333,20 @@ Item {
             Layout.fillHeight: true
             hoverable: false
             
-            ScrollView {
+            // Custom modern scrollbar
+            Flickable {
+                id: chapterFlickable
                 anchors.fill: parent
                 anchors.margins: Theme.spacingM
+                contentWidth: width
+                contentHeight: chapterGrid.height
                 clip: true
+                boundsBehavior: Flickable.StopAtBounds
                 
                 GridLayout {
+                    id: chapterGrid
                     width: parent.width
-                    columns: 5
+                    columns: 6
                     columnSpacing: Theme.spacingS
                     rowSpacing: Theme.spacingS
                     
@@ -349,12 +355,62 @@ Item {
                         model: root.manga ? root.manga.chapters : []
                         
                         ChapterItem {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 44
                             title: modelData.title
                             index: model.index
                             selected: root.selectedIndices.indexOf(model.index) !== -1
                             
                             onToggled: function(checked) {
                                 toggleChapter(model.index, checked)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Modern scrollbar
+            Rectangle {
+                id: scrollTrack
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.margins: 4
+                width: 8
+                radius: 4
+                color: Qt.rgba(Theme.bgCard.r, Theme.bgCard.g, Theme.bgCard.b, 0.3)
+                visible: chapterFlickable.contentHeight > chapterFlickable.height
+                
+                Rectangle {
+                    id: scrollHandle
+                    anchors.right: parent.right
+                    width: parent.width
+                    radius: 4
+                    color: scrollMouseArea.containsMouse || scrollMouseArea.pressed ? 
+                        Theme.accentPrimary : Theme.textMuted
+                    opacity: scrollMouseArea.containsMouse || scrollMouseArea.pressed ? 1 : 0.5
+                    
+                    // Calculate handle size and position
+                    property real ratio: chapterFlickable.height / chapterFlickable.contentHeight
+                    height: Math.max(40, parent.height * ratio)
+                    y: (parent.height - height) * (chapterFlickable.contentY / (chapterFlickable.contentHeight - chapterFlickable.height))
+                    
+                    Behavior on color { ColorAnimation { duration: 150 } }
+                    Behavior on opacity { NumberAnimation { duration: 150 } }
+                    
+                    MouseArea {
+                        id: scrollMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        drag.target: parent
+                        drag.axis: Drag.YAxis
+                        drag.minimumY: 0
+                        drag.maximumY: scrollTrack.height - scrollHandle.height
+                        
+                        onPositionChanged: {
+                            if (pressed) {
+                                var newY = scrollHandle.y / (scrollTrack.height - scrollHandle.height)
+                                chapterFlickable.contentY = newY * (chapterFlickable.contentHeight - chapterFlickable.height)
                             }
                         }
                     }

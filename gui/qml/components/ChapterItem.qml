@@ -14,7 +14,7 @@ Item {
     
     signal toggled(bool checked)
     
-    implicitWidth: 180
+    implicitWidth: 160  // Minimum width, can grow with Layout.fillWidth
     implicitHeight: 44
     
     Rectangle {
