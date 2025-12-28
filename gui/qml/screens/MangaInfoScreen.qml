@@ -12,7 +12,6 @@ Item {
     
     property var manga: null
     property var selectedIndices: []
-    property string selectionMode: "all"  // "all", "range", "custom"
     
     signal back()
     signal startDownload(var chapters)
@@ -60,13 +59,24 @@ Item {
             }
             
             Item { Layout.fillWidth: true }
+            
+            // Download button in header
+            NeonButton {
+                text: "📥 DOWNLOAD (" + root.selectedIndices.length + ")"
+                enabled: root.selectedIndices.length > 0
+                accentColor: Theme.success
+                
+                onClicked: {
+                    root.startDownload(root.selectedIndices)
+                }
+            }
         }
         
-        // ==================== Manga Info ====================
+        // ==================== Manga Info Card ====================
         
         GlassCard {
             Layout.fillWidth: true
-            Layout.preferredHeight: 200
+            Layout.preferredHeight: 240
             hoverable: false
             
             RowLayout {
@@ -74,10 +84,10 @@ Item {
                 anchors.margins: Theme.spacingL
                 spacing: Theme.spacingL
                 
-                // Cover Image
+                // Cover Image - uses local downloaded file
                 Rectangle {
-                    width: 120
-                    height: 170
+                    width: 140
+                    height: 200
                     radius: Theme.radiusM
                     color: Theme.bgCard
                     border.color: Theme.accentPrimary
@@ -86,7 +96,9 @@ Item {
                     Image {
                         anchors.fill: parent
                         anchors.margins: 2
-                        source: root.manga ? root.manga.cover_url : ""
+                        // Use local cover path if available
+                        source: root.manga && root.manga.cover_local ? 
+                            "file:///" + root.manga.cover_local : ""
                         fillMode: Image.PreserveAspectCrop
                         
                         Rectangle {
@@ -94,21 +106,35 @@ Item {
                             color: Theme.bgCard
                             visible: parent.status !== Image.Ready
                             
-                            Text {
+                            Column {
                                 anchors.centerIn: parent
-                                text: "📖"
-                                font.pixelSize: 40
+                                spacing: 4
+                                
+                                Text {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    text: "📖"
+                                    font.pixelSize: 40
+                                }
+                                
+                                Text {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    text: "Loading..."
+                                    font.pixelSize: 10
+                                    color: Theme.textMuted
+                                    visible: root.manga && root.manga.cover_local
+                                }
                             }
                         }
                     }
                 }
                 
-                // Info Grid
+                // Info Column
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     spacing: Theme.spacingS
                     
+                    // Title
                     Text {
                         text: root.manga ? root.manga.title : ""
                         font.pixelSize: Theme.fontSizeTitle
@@ -118,26 +144,40 @@ Item {
                         Layout.fillWidth: true
                     }
                     
+                    // Description
+                    Text {
+                        text: root.manga && root.manga.description ? 
+                            root.manga.description : "No description available."
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.textSecondary
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                        maximumLineCount: 3
+                        Layout.fillWidth: true
+                    }
+                    
+                    // Metadata Grid
                     GridLayout {
-                        columns: 2
+                        columns: 4
                         columnSpacing: Theme.spacingL
                         rowSpacing: Theme.spacingXS
                         
-                        Text { text: "📘 Type:"; color: Theme.textSecondary; font.pixelSize: Theme.fontSizeMedium }
-                        Text { text: root.manga ? root.manga.manga_type : ""; color: Theme.textPrimary; font.pixelSize: Theme.fontSizeMedium }
+                        Text { text: "📘 Type:"; color: Theme.textMuted; font.pixelSize: Theme.fontSizeSmall }
+                        Text { text: root.manga ? root.manga.manga_type : ""; color: Theme.textPrimary; font.pixelSize: Theme.fontSizeSmall }
                         
-                        Text { text: "📊 Status:"; color: Theme.textSecondary; font.pixelSize: Theme.fontSizeMedium }
+                        Text { text: "📊 Status:"; color: Theme.textMuted; font.pixelSize: Theme.fontSizeSmall }
                         Text { 
                             text: root.manga ? root.manga.status : ""
                             color: root.manga && root.manga.status === "completed" ? Theme.success : Theme.warning
-                            font.pixelSize: Theme.fontSizeMedium
+                            font.pixelSize: Theme.fontSizeSmall
+                            font.bold: true
                         }
                         
-                        Text { text: "📅 Year:"; color: Theme.textSecondary; font.pixelSize: Theme.fontSizeMedium }
-                        Text { text: root.manga ? root.manga.year : ""; color: Theme.textPrimary; font.pixelSize: Theme.fontSizeMedium }
+                        Text { text: "📅 Year:"; color: Theme.textMuted; font.pixelSize: Theme.fontSizeSmall }
+                        Text { text: root.manga ? root.manga.year : ""; color: Theme.textPrimary; font.pixelSize: Theme.fontSizeSmall }
                         
-                        Text { text: "📚 Chapters:"; color: Theme.textSecondary; font.pixelSize: Theme.fontSizeMedium }
-                        Text { text: root.manga ? root.manga.chapters_count.toString() : "0"; color: Theme.accentPrimary; font.bold: true; font.pixelSize: Theme.fontSizeMedium }
+                        Text { text: "📚 Chapters:"; color: Theme.textMuted; font.pixelSize: Theme.fontSizeSmall }
+                        Text { text: root.manga ? root.manga.chapters_count.toString() : "0"; color: Theme.accentPrimary; font.bold: true; font.pixelSize: Theme.fontSizeSmall }
                     }
                     
                     // Genres
@@ -146,12 +186,12 @@ Item {
                         spacing: Theme.spacingXS
                         
                         Repeater {
-                            model: root.manga ? root.manga.genres.slice(0, 5) : []
+                            model: root.manga ? root.manga.genres.slice(0, 6) : []
                             
                             Rectangle {
-                                width: genreText.width + 16
-                                height: 24
-                                radius: 12
+                                width: genreText.width + 12
+                                height: 22
+                                radius: 11
                                 color: Theme.bgCardHover
                                 border.color: Theme.borderLight
                                 
@@ -159,7 +199,7 @@ Item {
                                     id: genreText
                                     anchors.centerIn: parent
                                     text: modelData
-                                    font.pixelSize: Theme.fontSizeSmall
+                                    font.pixelSize: 10
                                     color: Theme.textSecondary
                                 }
                             }
@@ -169,14 +209,14 @@ Item {
             }
         }
         
-        // ==================== Selection Mode ====================
+        // ==================== Chapter Selection Header ====================
         
         RowLayout {
             Layout.fillWidth: true
             spacing: Theme.spacingM
             
             Text {
-                text: "📑 Select Chapters:"
+                text: "📑 Select Chapters"
                 font.pixelSize: Theme.fontSizeLarge
                 font.bold: true
                 color: Theme.textPrimary
@@ -184,57 +224,62 @@ Item {
             
             Item { Layout.fillWidth: true }
             
-            // Mode buttons
-            Repeater {
-                model: [
-                    { id: "all", label: "⭕ All", icon: "" },
-                    { id: "range", label: "🔢 Range", icon: "" },
-                    { id: "custom", label: "✅ Custom", icon: "" }
-                ]
+            // ALL button
+            Rectangle {
+                width: 80
+                height: 36
+                radius: Theme.radiusM
+                color: Theme.accentPrimary
                 
-                Rectangle {
-                    width: modeText.width + 24
-                    height: 36
-                    radius: Theme.radiusM
-                    color: root.selectionMode === modelData.id ? Theme.accentPrimary : Theme.bgCard
-                    border.color: root.selectionMode === modelData.id ? Theme.accentPrimary : Theme.borderLight
-                    
-                    Text {
-                        id: modeText
-                        anchors.centerIn: parent
-                        text: modelData.label
-                        font.pixelSize: Theme.fontSizeMedium
-                        color: root.selectionMode === modelData.id ? Theme.bgPrimary : Theme.textPrimary
-                    }
-                    
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            root.selectionMode = modelData.id
-                            updateSelection()
-                        }
-                    }
-                    
-                    Behavior on color { ColorAnimation { duration: Theme.animFast } }
+                Text {
+                    anchors.centerIn: parent
+                    text: "✓ ALL"
+                    font.pixelSize: Theme.fontSizeMedium
+                    font.bold: true
+                    color: Theme.bgPrimary
+                }
+                
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: selectAll()
                 }
             }
-        }
-        
-        // Range input (visible when range mode)
-        RowLayout {
-            Layout.fillWidth: true
-            visible: root.selectionMode === "range"
-            spacing: Theme.spacingM
             
+            // NONE button
+            Rectangle {
+                width: 80
+                height: 36
+                radius: Theme.radiusM
+                color: Theme.bgCard
+                border.color: Theme.borderLight
+                border.width: 1
+                
+                Text {
+                    anchors.centerIn: parent
+                    text: "✗ NONE"
+                    font.pixelSize: Theme.fontSizeMedium
+                    font.bold: true
+                    color: Theme.textPrimary
+                }
+                
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: selectNone()
+                }
+            }
+            
+            // Range input
             Text {
-                text: "From:"
+                text: "Range:"
                 color: Theme.textSecondary
+                font.pixelSize: Theme.fontSizeMedium
             }
             
             TextField {
                 id: rangeFrom
-                implicitWidth: 80
+                implicitWidth: 60
                 text: "1"
                 color: Theme.textPrimary
                 horizontalAlignment: Text.AlignHCenter
@@ -243,17 +288,17 @@ Item {
                     color: Theme.bgCard
                     border.color: Theme.borderLight
                 }
-                onTextChanged: updateSelection()
+                onTextChanged: selectRange()
             }
             
             Text {
-                text: "To:"
+                text: "-"
                 color: Theme.textSecondary
             }
             
             TextField {
                 id: rangeTo
-                implicitWidth: 80
+                implicitWidth: 60
                 text: root.manga ? root.manga.chapters_count.toString() : "1"
                 color: Theme.textPrimary
                 horizontalAlignment: Text.AlignHCenter
@@ -262,10 +307,14 @@ Item {
                     color: Theme.bgCard
                     border.color: Theme.borderLight
                 }
-                onTextChanged: updateSelection()
+                onTextChanged: selectRange()
             }
             
-            Item { Layout.fillWidth: true }
+            NeonButton {
+                text: "Apply"
+                implicitWidth: 70
+                onClicked: selectRange()
+            }
         }
         
         // ==================== Chapter Grid ====================
@@ -282,7 +331,7 @@ Item {
                 
                 GridLayout {
                     width: parent.width
-                    columns: 4
+                    columns: 5
                     columnSpacing: Theme.spacingS
                     rowSpacing: Theme.spacingS
                     
@@ -296,142 +345,62 @@ Item {
                             selected: root.selectedIndices.indexOf(model.index) !== -1
                             
                             onToggled: function(checked) {
-                                if (root.selectionMode === "custom") {
-                                    if (checked) {
-                                        if (root.selectedIndices.indexOf(index) === -1) {
-                                            root.selectedIndices = root.selectedIndices.concat([index])
-                                        }
-                                    } else {
-                                        root.selectedIndices = root.selectedIndices.filter(i => i !== index)
-                                    }
-                                }
+                                toggleChapter(model.index, checked)
                             }
                         }
-                    }
-                }
-            }
-        }
-        
-        // ==================== Format & Download ====================
-        
-        GlassCard {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 80
-            hoverable: false
-            
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: Theme.spacingM
-                spacing: Theme.spacingL
-                
-                // Format selection
-                ColumnLayout {
-                    spacing: Theme.spacingXS
-                    
-                    Text {
-                        text: "📄 Format"
-                        font.pixelSize: Theme.fontSizeSmall
-                        color: Theme.textSecondary
-                    }
-                    
-                    RowLayout {
-                        spacing: Theme.spacingS
-                        
-                        Repeater {
-                            model: ["images", "pdf", "cbz"]
-                            
-                            Rectangle {
-                                width: 70
-                                height: 32
-                                radius: Theme.radiusS
-                                color: bridge.outputFormat === modelData ? Theme.accentPrimary : Theme.bgCard
-                                border.color: Theme.borderLight
-                                
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: modelData.toUpperCase()
-                                    font.pixelSize: Theme.fontSizeSmall
-                                    font.bold: true
-                                    color: bridge.outputFormat === modelData ? Theme.bgPrimary : Theme.textPrimary
-                                }
-                                
-                                MouseArea {
-                                    anchors.fill: parent
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: bridge.outputFormat = modelData
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                // Keep images toggle
-                ColumnLayout {
-                    spacing: Theme.spacingXS
-                    visible: bridge.outputFormat !== "images"
-                    
-                    Text {
-                        text: "🖼️ Keep Images"
-                        font.pixelSize: Theme.fontSizeSmall
-                        color: Theme.textSecondary
-                    }
-                    
-                    ToggleSwitch {
-                        checked: bridge.keepImages
-                        onCheckedChanged: bridge.keepImages = checked
-                    }
-                }
-                
-                Item { Layout.fillWidth: true }
-                
-                // Download button
-                NeonButton {
-                    text: "📥 DOWNLOAD (" + root.selectedIndices.length + ")"
-                    enabled: root.selectedIndices.length > 0
-                    accentColor: Theme.success
-                    
-                    onClicked: {
-                        root.startDownload(root.selectedIndices)
                     }
                 }
             }
         }
     }
     
-    function updateSelection() {
+    // ==================== Functions ====================
+    
+    function selectAll() {
         if (!root.manga) return
-        
-        var total = root.manga.chapters_count
-        
-        if (root.selectionMode === "all") {
-            var allIndices = []
-            for (var i = 0; i < total; i++) {
-                allIndices.push(i)
-            }
-            root.selectedIndices = allIndices
-        } else if (root.selectionMode === "range") {
-            var from = Math.max(1, parseInt(rangeFrom.text) || 1) - 1
-            var to = Math.min(total, parseInt(rangeTo.text) || total) - 1
-            var rangeIndices = []
-            for (var j = from; j <= to; j++) {
-                rangeIndices.push(j)
-            }
-            root.selectedIndices = rangeIndices
+        var allIndices = []
+        for (var i = 0; i < root.manga.chapters_count; i++) {
+            allIndices.push(i)
         }
-        // Custom mode - selection handled by ChapterItem clicks
+        root.selectedIndices = allIndices
+    }
+    
+    function selectNone() {
+        root.selectedIndices = []
+    }
+    
+    function selectRange() {
+        if (!root.manga) return
+        var from = Math.max(1, parseInt(rangeFrom.text) || 1) - 1
+        var to = Math.min(root.manga.chapters_count, parseInt(rangeTo.text) || root.manga.chapters_count) - 1
+        var rangeIndices = []
+        for (var j = from; j <= to; j++) {
+            rangeIndices.push(j)
+        }
+        root.selectedIndices = rangeIndices
+    }
+    
+    function toggleChapter(index, checked) {
+        if (checked) {
+            if (root.selectedIndices.indexOf(index) === -1) {
+                root.selectedIndices = root.selectedIndices.concat([index])
+            }
+        } else {
+            root.selectedIndices = root.selectedIndices.filter(function(i) { return i !== index })
+        }
     }
     
     Component.onCompleted: {
         if (root.manga) {
             rangeTo.text = root.manga.chapters_count.toString()
-            updateSelection()
+            selectAll()  // Select all by default
         }
     }
     
     onMangaChanged: {
         if (root.manga) {
             rangeTo.text = root.manga.chapters_count.toString()
-            updateSelection()
+            selectAll()  // Select all by default
         }
     }
 }

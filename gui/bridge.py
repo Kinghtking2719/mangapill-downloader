@@ -30,14 +30,47 @@ class ScraperWorker(QThread):
         super().__init__()
         self.url = url
     
+    def _download_cover(self, cover_url: str) -> str:
+        """Download cover image with proper headers and return local file path."""
+        import requests
+        import tempfile
+        import os
+        from src.constants import HEADERS
+        
+        try:
+            response = requests.get(cover_url, headers=HEADERS, timeout=15)
+            if response.status_code == 200:
+                # Save to temp directory
+                temp_dir = Path(tempfile.gettempdir()) / "mangapill_gui"
+                temp_dir.mkdir(exist_ok=True)
+                
+                # Extract filename from URL
+                ext = cover_url.split('.')[-1].split('?')[0]
+                if ext not in ['jpg', 'jpeg', 'png', 'webp', 'gif']:
+                    ext = 'jpg'
+                
+                cover_path = temp_dir / f"cover_{hash(cover_url)}.{ext}"
+                cover_path.write_bytes(response.content)
+                return str(cover_path)
+        except Exception as e:
+            print(f"Failed to download cover: {e}")
+        return ""
+    
     def run(self):
         try:
             manga = scrape_manga(self.url)
+            
+            # Download cover image with proper headers
+            local_cover = ""
+            if manga.cover_url:
+                local_cover = self._download_cover(manga.cover_url)
+            
             # Convert to dict for QML
             result = {
                 "title": manga.title,
                 "url": manga.url,
                 "cover_url": manga.cover_url or "",
+                "cover_local": local_cover,  # Local file path for QML Image
                 "description": manga.description or "",
                 "manga_type": manga.manga_type or "",
                 "status": manga.status or "",
