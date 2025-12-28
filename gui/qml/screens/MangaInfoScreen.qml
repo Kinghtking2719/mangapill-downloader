@@ -12,6 +12,7 @@ Item {
     
     property var manga: null
     property var selectedIndices: []
+    property string selectionMode: "all"  // "all", "none", "custom"
     
     signal back()
     signal startDownload(var chapters)
@@ -226,17 +227,20 @@ Item {
             
             // ALL button
             Rectangle {
+                id: allBtn
                 width: 80
                 height: 36
                 radius: Theme.radiusM
-                color: Theme.accentPrimary
+                color: root.selectionMode === "all" ? Theme.accentPrimary : Theme.bgCard
+                border.color: root.selectionMode === "all" ? Theme.accentPrimary : Theme.borderLight
+                border.width: root.selectionMode === "all" ? 0 : 1
                 
                 Text {
                     anchors.centerIn: parent
                     text: "✓ ALL"
                     font.pixelSize: Theme.fontSizeMedium
                     font.bold: true
-                    color: Theme.bgPrimary
+                    color: root.selectionMode === "all" ? Theme.bgPrimary : Theme.textPrimary
                 }
                 
                 MouseArea {
@@ -244,23 +248,26 @@ Item {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: selectAll()
                 }
+                
+                Behavior on color { ColorAnimation { duration: Theme.animFast } }
             }
             
             // NONE button
             Rectangle {
+                id: noneBtn
                 width: 80
                 height: 36
                 radius: Theme.radiusM
-                color: Theme.bgCard
-                border.color: Theme.borderLight
-                border.width: 1
+                color: root.selectionMode === "none" ? Theme.error : Theme.bgCard
+                border.color: root.selectionMode === "none" ? Theme.error : Theme.borderLight
+                border.width: root.selectionMode === "none" ? 0 : 1
                 
                 Text {
                     anchors.centerIn: parent
                     text: "✗ NONE"
                     font.pixelSize: Theme.fontSizeMedium
                     font.bold: true
-                    color: Theme.textPrimary
+                    color: root.selectionMode === "none" ? Theme.textPrimary : Theme.textPrimary
                 }
                 
                 MouseArea {
@@ -268,6 +275,8 @@ Item {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: selectNone()
                 }
+                
+                Behavior on color { ColorAnimation { duration: Theme.animFast } }
             }
             
             // Range input
@@ -363,10 +372,12 @@ Item {
             allIndices.push(i)
         }
         root.selectedIndices = allIndices
+        root.selectionMode = "all"
     }
     
     function selectNone() {
         root.selectedIndices = []
+        root.selectionMode = "none"
     }
     
     function selectRange() {
@@ -378,9 +389,11 @@ Item {
             rangeIndices.push(j)
         }
         root.selectedIndices = rangeIndices
+        root.selectionMode = "custom"
     }
     
     function toggleChapter(index, checked) {
+        root.selectionMode = "custom"  // Switch to custom when manually toggling
         if (checked) {
             if (root.selectedIndices.indexOf(index) === -1) {
                 root.selectedIndices = root.selectedIndices.concat([index])

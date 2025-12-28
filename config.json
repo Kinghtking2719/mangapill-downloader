@@ -1,6 +1,6 @@
 {
   "output_dir": "./downloads",
-  "output_format": "images",
+  "output_format": "pdf",
   "keep_images": true,
   "max_chapter_workers": 3,
   "max_image_workers": 8,
